@@ -1,0 +1,9 @@
+{
+    "C_Cpp.errorSquiggles": "enabled",
+    "files.associations": {
+        "cstddef": "cpp",
+        "xtr1common": "cpp",
+        "iostream": "cpp"
+    },
+    "C_Cpp.default.compilerPath": "cl.exe"
+}
