@@ -27,22 +27,41 @@ public:
       }
     }
   }
-  bool hasCycle(ListNode *head) {
-    if (head == nullptr) {
-      return false;
+  ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+    if (headA == nullptr || headB == nullptr) {
+      return nullptr;
     }
-    ListNode *slow = head, *fast = head;
-    while (slow != nullptr && fast != nullptr) {
-      slow = slow->next;
-      if (fast->next == nullptr) {
-        return false;
-      }
-      fast = fast->next->next;
-      if (slow == fast) {
-        return true;
-      }
+    if (headA == headB) {
+      return headA;
     }
-    return false;
+    int countA = 0, countB = 0;
+    ListNode *currA = headA, *currB = headB;
+    while (currA != nullptr) {
+      currA = currA->next;
+      countA++;
+    }
+    while (currB != nullptr) {
+      currB = currB->next;
+      countB++;
+    }
+    ListNode *shortHead = countA <= countB ? headA : headB;
+    ListNode *longHead = countA > countB ? headA : headB;
+    int count = 0;
+    while (longHead != nullptr) {
+      if (count == std::abs(countA - countB)) {
+        break;
+      }
+      longHead = longHead->next;
+      count++;
+    }
+    while (longHead != nullptr) {
+      if (longHead == shortHead) {
+        return longHead;
+      }
+      longHead = longHead->next;
+      shortHead = shortHead->next;
+    }
+    return nullptr;
   }
 };
 
@@ -59,6 +78,4 @@ int main() {
   head->next->next->next = node4;
   head->next->next->next->next = node2;
   solution.print(head);
-  bool result = solution.hasCycle(head);
-  std::cout << "Has Cycle? " << std::boolalpha << result << std::endl;
 }

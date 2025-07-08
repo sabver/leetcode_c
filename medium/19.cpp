@@ -27,22 +27,28 @@ public:
       }
     }
   }
-  bool hasCycle(ListNode *head) {
-    if (head == nullptr) {
-      return false;
+  ListNode *removeNthFromEnd(ListNode *head, int n) {
+    int length = 0;
+    ListNode *curr = head, *dummy = new ListNode(0);
+    dummy->next = head;
+    ListNode *result = dummy;
+    while (curr != nullptr) {
+      length++;
+      curr = curr->next;
     }
-    ListNode *slow = head, *fast = head;
-    while (slow != nullptr && fast != nullptr) {
-      slow = slow->next;
-      if (fast->next == nullptr) {
-        return false;
-      }
-      fast = fast->next->next;
-      if (slow == fast) {
-        return true;
+    int forward = length - n;
+    while (forward > 0) {
+      forward--;
+      dummy = dummy->next;
+    }
+    if (dummy->next != nullptr) {
+      if (dummy->next->next == nullptr) {
+        dummy->next = nullptr;
+      } else {
+        dummy->next = dummy->next->next;
       }
     }
-    return false;
+    return result->next;
   }
 };
 
@@ -59,6 +65,4 @@ int main() {
   head->next->next->next = node4;
   head->next->next->next->next = node2;
   solution.print(head);
-  bool result = solution.hasCycle(head);
-  std::cout << "Has Cycle? " << std::boolalpha << result << std::endl;
 }

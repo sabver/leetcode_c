@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unordered_set>
 
 /**
  * Definition for singly-linked list.
@@ -27,22 +28,17 @@ public:
       }
     }
   }
-  bool hasCycle(ListNode *head) {
-    if (head == nullptr) {
-      return false;
-    }
-    ListNode *slow = head, *fast = head;
-    while (slow != nullptr && fast != nullptr) {
-      slow = slow->next;
-      if (fast->next == nullptr) {
-        return false;
+  ListNode *detectCycle(ListNode *head) {
+    std::unordered_set<ListNode *> nodesSeen;
+    ListNode *curr = head;
+    while (curr != nullptr) {
+      if (nodesSeen.find(curr) != nodesSeen.end()) {
+        return curr;
       }
-      fast = fast->next->next;
-      if (slow == fast) {
-        return true;
-      }
+      nodesSeen.insert(curr);
+      curr = curr->next;
     }
-    return false;
+    return nullptr;
   }
 };
 
@@ -59,6 +55,6 @@ int main() {
   head->next->next->next = node4;
   head->next->next->next->next = node2;
   solution.print(head);
-  bool result = solution.hasCycle(head);
-  std::cout << "Has Cycle? " << std::boolalpha << result << std::endl;
+  ListNode *result = solution.detectCycle(head);
+  std::cout << "detect result:" << result->val << std::endl;
 }

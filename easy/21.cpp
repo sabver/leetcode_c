@@ -27,22 +27,28 @@ public:
       }
     }
   }
-  bool hasCycle(ListNode *head) {
-    if (head == nullptr) {
-      return false;
-    }
-    ListNode *slow = head, *fast = head;
-    while (slow != nullptr && fast != nullptr) {
-      slow = slow->next;
-      if (fast->next == nullptr) {
-        return false;
+  ListNode *mergeTwoLists(ListNode *list1, ListNode *list2) {
+    ListNode *dummy = new ListNode(0);
+    ListNode *result = dummy;
+    while (list1 != nullptr || list2 != nullptr) {
+      if (list1 != nullptr && list2 != nullptr) {
+        if (list1->val <= list2->val) {
+          dummy->next = list1;
+          list1 = list1->next;
+        } else {
+          dummy->next = list2;
+          list2 = list2->next;
+        }
+      } else if (list1 != nullptr) {
+        dummy->next = list1;
+        list1 = list1->next;
+      } else {
+        dummy->next = list2;
+        list2 = list2->next;
       }
-      fast = fast->next->next;
-      if (slow == fast) {
-        return true;
-      }
+      dummy = dummy->next;
     }
-    return false;
+    return result->next;
   }
 };
 
@@ -59,6 +65,4 @@ int main() {
   head->next->next->next = node4;
   head->next->next->next->next = node2;
   solution.print(head);
-  bool result = solution.hasCycle(head);
-  std::cout << "Has Cycle? " << std::boolalpha << result << std::endl;
 }
