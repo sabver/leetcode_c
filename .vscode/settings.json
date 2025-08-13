@@ -52,7 +52,21 @@
         "xlocnum": "cpp",
         "xloctime": "cpp",
         "xmemory": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "algorithm": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "functional": "cpp",
+        "optional": "cpp",
+        "queue": "cpp",
+        "ranges": "cpp",
+        "span": "cpp",
+        "unordered_map": "cpp",
+        "stack": "cpp",
+        "string": "cpp",
+        "map": "cpp",
+        "xtree": "cpp",
+        "set": "cpp"
     },
     "C_Cpp.default.compilerPath": "cl.exe"
 }
